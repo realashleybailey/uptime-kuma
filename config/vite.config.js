@@ -11,6 +11,7 @@ const viteCompressionFilter = /\.(js|mjs|json|css|html|svg)$/i;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: "/kuma/",
     server: {
         port: 3000,
     },
@@ -20,7 +21,7 @@ export default defineConfig({
     plugins: [
         vue(),
         legacy({
-            targets: [ "since 2015" ],
+            targets: ["since 2015"],
         }),
         visualizer({
             filename: "tmp/dist-stats.html"
@@ -38,7 +39,7 @@ export default defineConfig({
         postcss: {
             "parser": postCssScss,
             "map": false,
-            "plugins": [ postcssRTLCSS ]
+            "plugins": [postcssRTLCSS]
         }
     },
     build: {
