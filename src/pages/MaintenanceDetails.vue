@@ -9,7 +9,7 @@
             </p>
 
             <div class="functions" style="margin-top: 10px;">
-                <router-link :to=" '/maintenance/edit/' + maintenance.id " class="btn btn-secondary">
+                <router-link :to=" '/kuma/maintenance/edit/' + maintenance.id " class="btn btn-secondary">
                     <font-awesome-icon icon="edit" /> {{ $t("Edit") }}
                 </router-link>
                 <button class="btn btn-danger" @click="deleteDialog">
@@ -94,7 +94,7 @@ export default {
             this.$root.deleteMaintenance(this.maintenance.id, (res) => {
                 if (res.ok) {
                     toast.success(res.msg);
-                    this.$router.push("/maintenance");
+                    this.$router.push("/kuma/maintenance");
                 } else {
                     toast.error(res.msg);
                 }

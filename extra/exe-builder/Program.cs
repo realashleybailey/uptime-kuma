@@ -15,16 +15,20 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using UptimeKuma.Properties;
 
-namespace UptimeKuma {
-    static class Program {
+namespace UptimeKuma
+{
+    static class Program
+    {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
             var cwd = Path.GetDirectoryName(Application.ExecutablePath);
 
-            if (cwd != null) {
+            if (cwd != null)
+            {
                 Environment.CurrentDirectory = cwd;
             }
 
@@ -50,12 +54,14 @@ namespace UptimeKuma {
         private RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
 
-        public UptimeKumaApplicationContext() {
+        public UptimeKumaApplicationContext()
+        {
 
             // Single instance only
             bool createdNew;
             mutex = new Mutex(true, appName, out createdNew);
-            if (!createdNew) {
+            if (!createdNew)
+            {
                 return;
             }
 
@@ -89,37 +95,48 @@ namespace UptimeKuma {
 
             var hasUpdateFile = File.Exists("update");
 
-            if (!hasUpdateFile && Directory.Exists("core") && Directory.Exists("node") && Directory.Exists("core/node_modules") && Directory.Exists("core/dist")) {
+            if (!hasUpdateFile && Directory.Exists("core") && Directory.Exists("node") && Directory.Exists("core/node_modules") && Directory.Exists("core/dist"))
+            {
                 // Go go go
                 StartProcess();
-            } else {
+            }
+            else
+            {
                 DownloadFiles();
             }
         }
 
-        void DownloadFiles() {
+        void DownloadFiles()
+        {
             var form = new DownloadForm();
             form.Closed += Exit;
             form.Show();
         }
 
-        private void RunWhenStarts(object sender, EventArgs e) {
-            if (registryKey == null) {
+        private void RunWhenStarts(object sender, EventArgs e)
+        {
+            if (registryKey == null)
+            {
                 MessageBox.Show("Error: Unable to set startup registry key.");
                 return;
             }
 
-            if (runWhenStarts.Checked) {
+            if (runWhenStarts.Checked)
+            {
                 registryKey.DeleteValue(appName, false);
                 runWhenStarts.Checked = false;
-            } else {
+            }
+            else
+            {
                 registryKey.SetValue(appName, Application.ExecutablePath);
                 runWhenStarts.Checked = true;
             }
         }
 
-        void StartProcess() {
-            var startInfo = new ProcessStartInfo {
+        void StartProcess()
+        {
+            var startInfo = new ProcessStartInfo
+            {
                 FileName = "node/node.exe",
                 Arguments = "server/server.js --data-dir=\"../data/\"",
                 RedirectStandardOutput = false,
@@ -134,49 +151,62 @@ namespace UptimeKuma {
             process.EnableRaisingEvents = true;
             process.Exited += ProcessExited;
 
-            try {
+            try
+            {
                 process.Start();
                 //Open(null, null);
 
                 // Async task to check if the server is ready
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     var runningText = "Server is running";
                     using TcpClient tcpClient = new TcpClient();
-                    while (true) {
-                        try {
+                    while (true)
+                    {
+                        try
+                        {
                             tcpClient.Connect("127.0.0.1", 3001);
                             statusMenuItem.Text = runningText;
                             openMenuItem.Enabled = true;
                             trayIcon.Text = runningText;
                             break;
-                        } catch (Exception) {
+                        }
+                        catch (Exception)
+                        {
                             System.Threading.Thread.Sleep(2000);
                         }
                     }
                 });
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Startup failed: " + e.Message, "Uptime Kuma Error");
             }
         }
 
-        void StopProcess() {
+        void StopProcess()
+        {
             process?.Kill();
         }
 
-        void Open(object sender, EventArgs e) {
+        void Open(object sender, EventArgs e)
+        {
             Process.Start("http://localhost:3001");
         }
 
-        void DebugConsole(object sender, EventArgs e) {
+        void DebugConsole(object sender, EventArgs e)
+        {
 
         }
 
-        void CheckForUpdate(object sender, EventArgs e) {
+        void CheckForUpdate(object sender, EventArgs e)
+        {
             var needUpdate = false;
 
             // Check version.json exists
-            if (File.Exists("version.json")) {
+            if (File.Exists("version.json"))
+            {
                 // Load version.json and compare with the latest version from GitHub
                 var currentVersionObj = JsonConvert.DeserializeObject<Version>(File.ReadAllText("version.json"));
 
@@ -184,9 +214,11 @@ namespace UptimeKuma {
                 var latestVersionObj = JsonConvert.DeserializeObject<Version>(versionJson);
 
                 // Compare version, if the latest version is newer, then update
-                if (new System.Version(latestVersionObj.latest).CompareTo(new System.Version(currentVersionObj.latest)) > 0) {
+                if (new System.Version(latestVersionObj.latest).CompareTo(new System.Version(currentVersionObj.latest)) > 0)
+                {
                     var result = MessageBox.Show("A new version is available. Do you want to update?", "Update", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes) {
+                    if (result == DialogResult.Yes)
+                    {
                         // Create a empty file `update`, so the app will download the core files again at startup
                         File.Create("update").Close();
 
@@ -196,7 +228,9 @@ namespace UptimeKuma {
                         // Restart the app, it will download the core files again at startup
                         Application.Restart();
                     }
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("You are using the latest version.");
                 }
             }
@@ -206,7 +240,7 @@ namespace UptimeKuma {
 
         void VisitGitHub(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/louislam/uptime-kuma");
+            Process.Start("https://github.com/realashleybailey/uptime-kuma");
         }
 
         void About(object sender, EventArgs e)
@@ -222,9 +256,11 @@ namespace UptimeKuma {
             Application.Exit();
         }
 
-        void ProcessExited(object sender, EventArgs e) {
+        void ProcessExited(object sender, EventArgs e)
+        {
 
-            if (process.ExitCode != 0) {
+            if (process.ExitCode != 0)
+            {
                 var line = "";
                 while (!process.StandardOutput.EndOfStream)
                 {

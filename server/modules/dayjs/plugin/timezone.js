@@ -1,6 +1,6 @@
 /**
  * Copy from node_modules/dayjs/plugin/timezone.js
- * Try to fix https://github.com/louislam/uptime-kuma/issues/2318
+ * Try to fix https://github.com/realashleybailey/uptime-kuma/issues/2318
  * Source: https://github.com/iamkun/dayjs/tree/dev/src/plugin/utc
  * License: MIT
  */
@@ -97,10 +97,10 @@
                 let i = t - 60 * e * 1e3;
                 let o = u(i, n);
                 if (e === o) {
-                    return [ i, e ];
+                    return [i, e];
                 }
                 let r = u(i -= 60 * (o - e) * 1e3, n);
-                return o === r ? [ i, o ] : [ t - 60 * Math.min(o, r) * 1e3, Math.max(o, r) ];
+                return o === r ? [i, o] : [t - 60 * Math.min(o, r) * 1e3, Math.max(o, r)];
             }(o.utc(t, i).valueOf(), f, a);
             let m = s[0];
             let c = s[1];

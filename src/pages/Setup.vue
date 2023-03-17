@@ -64,7 +64,7 @@ export default {
     mounted() {
         this.$root.getSocket().emit("needSetup", (needSetup) => {
             if (! needSetup) {
-                this.$router.push("/");
+                this.$router.push("/kuma/");
             }
         });
     },
@@ -91,7 +91,7 @@ export default {
 
                     this.$root.login(this.username, this.password, "", () => {
                         this.processing = false;
-                        this.$router.push("/");
+                        this.$router.push("/kuma/");
                     });
                 }
             });

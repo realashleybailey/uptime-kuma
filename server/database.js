@@ -62,7 +62,7 @@ class Database {
         "patch-added-mqtt-monitor.sql": true,
         "patch-add-clickable-status-page-link.sql": true,
         "patch-add-sqlserver-monitor.sql": true,
-        "patch-add-other-auth.sql": { parents: [ "patch-monitor-basic-auth.sql" ] },
+        "patch-add-other-auth.sql": { parents: ["patch-monitor-basic-auth.sql"] },
         "patch-grpc-monitor.sql": true,
         "patch-add-radius-monitor.sql": true,
         "patch-monitor-add-resend-interval.sql": true,
@@ -99,13 +99,13 @@ class Database {
         }
 
         Database.path = Database.dataDir + "kuma.db";
-        if (! fs.existsSync(Database.dataDir)) {
+        if (!fs.existsSync(Database.dataDir)) {
             fs.mkdirSync(Database.dataDir, { recursive: true });
         }
 
         Database.uploadDir = Database.dataDir + "upload/";
 
-        if (! fs.existsSync(Database.uploadDir)) {
+        if (!fs.existsSync(Database.uploadDir)) {
             fs.mkdirSync(Database.uploadDir, { recursive: true });
         }
 
@@ -184,7 +184,7 @@ class Database {
     static async patch() {
         let version = parseInt(await setting("database_version"));
 
-        if (! version) {
+        if (!version) {
             version = 0;
         }
 
@@ -220,7 +220,7 @@ class Database {
 
                 log.error("db", ex);
                 log.error("db", "Start Uptime-Kuma failed due to issue patching the database");
-                log.error("db", "Please submit a bug report if you still encounter the problem after restart: https://github.com/louislam/uptime-kuma/issues");
+                log.error("db", "Please submit a bug report if you still encounter the problem after restart: https://github.com/realashleybailey/uptime-kuma/issues");
 
                 this.restore();
                 process.exit(1);
@@ -241,7 +241,7 @@ class Database {
         log.info("db", "Database Patch 2.0 Process");
         let databasePatchedFiles = await setting("databasePatchedFiles");
 
-        if (! databasePatchedFiles) {
+        if (!databasePatchedFiles) {
             databasePatchedFiles = {};
         }
 
@@ -262,7 +262,7 @@ class Database {
 
             log.error("db", ex);
             log.error("db", "Start Uptime-Kuma failed due to issue patching the database");
-            log.error("db", "Please submit the bug report if you still encounter the problem after restart: https://github.com/louislam/uptime-kuma/issues");
+            log.error("db", "Please submit the bug report if you still encounter the problem after restart: https://github.com/realashleybailey/uptime-kuma/issues");
 
             this.restore();
 
@@ -351,13 +351,13 @@ class Database {
     static async patch2Recursion(sqlFilename, databasePatchedFiles) {
         let value = this.patchList[sqlFilename];
 
-        if (! value) {
+        if (!value) {
             log.info("db", sqlFilename + " skip");
             return;
         }
 
         // Check if patched
-        if (! databasePatchedFiles[sqlFilename]) {
+        if (!databasePatchedFiles[sqlFilename]) {
             log.info("db", sqlFilename + " is not patched");
 
             if (value.parents) {
@@ -394,7 +394,7 @@ class Database {
         // Remove all comments (--)
         let lines = text.split("\n");
         lines = lines.filter((line) => {
-            return ! line.startsWith("--");
+            return !line.startsWith("--");
         });
 
         // Split statements by semicolon
@@ -456,7 +456,7 @@ class Database {
      * @param {string} version Version code of backup
      */
     static backup(version) {
-        if (! this.backupPath) {
+        if (!this.backupPath) {
             log.info("db", "Backing up the database");
             this.backupPath = this.dataDir + "kuma.db.bak" + version;
             fs.copyFileSync(Database.path, this.backupPath);

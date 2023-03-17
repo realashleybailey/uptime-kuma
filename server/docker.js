@@ -15,7 +15,7 @@ class DockerHost {
         let bean;
 
         if (dockerHostID) {
-            bean = await R.findOne("docker_host", " id = ? AND user_id = ? ", [ dockerHostID, userID ]);
+            bean = await R.findOne("docker_host", " id = ? AND user_id = ? ", [dockerHostID, userID]);
 
             if (!bean) {
                 throw new Error("docker host not found");
@@ -42,14 +42,14 @@ class DockerHost {
      * @returns {Promise<void>}
      */
     static async delete(dockerHostID, userID) {
-        let bean = await R.findOne("docker_host", " id = ? AND user_id = ? ", [ dockerHostID, userID ]);
+        let bean = await R.findOne("docker_host", " id = ? AND user_id = ? ", [dockerHostID, userID]);
 
         if (!bean) {
             throw new Error("docker host not found");
         }
 
         // Delete removed proxy from monitors if exists
-        await R.exec("UPDATE monitor SET docker_host = null WHERE docker_host = ?", [ dockerHostID ]);
+        await R.exec("UPDATE monitor SET docker_host = null WHERE docker_host = ?", [dockerHostID]);
 
         await R.trash(bean);
     }
@@ -102,7 +102,7 @@ class DockerHost {
 
     /**
      * Since axios 0.27.X, it does not accept `tcp://` protocol.
-     * Change it to `http://` on the fly in order to fix it. (https://github.com/louislam/uptime-kuma/issues/2165)
+     * Change it to `http://` on the fly in order to fix it. (https://github.com/realashleybailey/uptime-kuma/issues/2165)
      */
     static patchDockerURL(url) {
         if (typeof url === "string") {

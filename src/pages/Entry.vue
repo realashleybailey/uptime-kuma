@@ -18,29 +18,26 @@ export default {
         };
     },
     async mounted() {
-
         // There are only 2 cases that could come in here.
         // 1. Matched status Page domain name
         // 2. Vue Frontend Dev
-        let res = (await axios.get("/api/entry-page")).data;
+        let res = (await axios.get("/kuma/api/entry-page")).data;
 
         if (res.type === "statusPageMatchedDomain") {
             this.statusPageSlug = res.statusPageSlug;
             this.$root.forceStatusPageTheme = true;
-
-        } else if (res.type === "entryPage") {          // Dev only. For production, the logic is in the server side
+        } else if (res.type === "entryPage") {
+            // Dev only. For production, the logic is in the server side
             const entryPage = res.entryPage;
 
             if (entryPage === "statusPage") {
-                this.$router.push("/status");
+                this.$router.push("/kuma/status");
             } else {
-                this.$router.push("/dashboard");
+                this.$router.push("/kuma/dashboard");
             }
         } else {
-            this.$router.push("/dashboard");
+            this.$router.push("/kuma/dashboard");
         }
-
     },
-
 };
 </script>

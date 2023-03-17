@@ -435,7 +435,7 @@ export default {
                                 toast.success(res.msg);
                                 this.processing = false;
                                 this.$root.getMaintenanceList();
-                                this.$router.push("/maintenance");
+                                this.$router.push("/kuma/maintenance");
                             });
                         });
                     } else {
@@ -452,7 +452,7 @@ export default {
                                 this.processing = false;
                                 this.$root.toastRes(res);
                                 this.init();
-                                this.$router.push("/maintenance");
+                                this.$router.push("/kuma/maintenance");
                             });
                         });
                     } else {

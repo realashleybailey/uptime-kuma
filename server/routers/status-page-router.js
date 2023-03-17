@@ -11,23 +11,23 @@ let router = express.Router();
 let cache = apicache.middleware;
 const server = UptimeKumaServer.getInstance();
 
-router.get("/status/:slug", cache("5 minutes"), async (request, response) => {
+router.get("/kuma/status/:slug", cache("5 minutes"), async (request, response) => {
     let slug = request.params.slug;
     await StatusPage.handleStatusPageResponse(response, server.indexHTML, slug);
 });
 
-router.get("/status", cache("5 minutes"), async (request, response) => {
+router.get("/kuma/status", cache("5 minutes"), async (request, response) => {
     let slug = "default";
     await StatusPage.handleStatusPageResponse(response, server.indexHTML, slug);
 });
 
-router.get("/status-page", cache("5 minutes"), async (request, response) => {
+router.get("/kuma/status-page", cache("5 minutes"), async (request, response) => {
     let slug = "default";
     await StatusPage.handleStatusPageResponse(response, server.indexHTML, slug);
 });
 
 // Status page config, incident, monitor list
-router.get("/api/status-page/:slug", cache("5 minutes"), async (request, response) => {
+router.get("/kuma/api/status-page/:slug", cache("5 minutes"), async (request, response) => {
     allowDevAllOrigin(response);
     let slug = request.params.slug;
 
@@ -58,7 +58,7 @@ router.get("/api/status-page/:slug", cache("5 minutes"), async (request, respons
 
 // Status Page Polling Data
 // Can fetch only if published
-router.get("/api/status-page/heartbeat/:slug", cache("1 minutes"), async (request, response) => {
+router.get("/kuma/api/status-page/heartbeat/:slug", cache("1 minutes"), async (request, response) => {
     allowDevAllOrigin(response);
 
     try {
@@ -105,7 +105,7 @@ router.get("/api/status-page/heartbeat/:slug", cache("1 minutes"), async (reques
 });
 
 // Status page's manifest.json
-router.get("/api/status-page/:slug/manifest.json", cache("1440 minutes"), async (request, response) => {
+router.get("/kuma/api/status-page/:slug/manifest.json", cache("1440 minutes"), async (request, response) => {
     allowDevAllOrigin(response);
     let slug = request.params.slug;
 
@@ -123,7 +123,7 @@ router.get("/api/status-page/:slug/manifest.json", cache("1440 minutes"), async 
         // Response
         response.json({
             "name": statusPage.title,
-            "start_url": "/status/" + statusPage.slug,
+            "start_url": "/kuma/status/" + statusPage.slug,
             "display": "standalone",
             "icons": [
                 {

@@ -210,7 +210,7 @@ function ApiCache() {
             try {
                 redis.hset(key, "response", JSON.stringify(value));
                 redis.hset(key, "duration", duration);
-                redis.expire(key, duration / 1000, expireCallback || function () {});
+                redis.expire(key, duration / 1000, expireCallback || function () { });
             } catch (err) {
                 debug("[apicache] error in redis.hset()");
             }
@@ -268,7 +268,7 @@ function ApiCache() {
      * @param {function(Object, Object):boolean} toggle
      */
     function makeResponseCacheable(req, res, next, key, duration, strDuration, toggle) {
-    // monkeypatch res.end to create cache object
+        // monkeypatch res.end to create cache object
         res._apicache = {
             write: res.write,
             writeHead: res.writeHead,
@@ -367,7 +367,7 @@ function ApiCache() {
         let data = cacheObject.data;
         if (data && data.type === "Buffer") {
             data =
-        typeof data.data === "number" ? new Buffer.alloc(data.data) : new Buffer.from(data.data);
+                typeof data.data === "number" ? new Buffer.alloc(data.data) : new Buffer.from(data.data);
         }
 
         // test Etag against If-None-Match for 304
@@ -528,7 +528,7 @@ function ApiCache() {
 
     /**
      * Get index of a group
-     * @param {string} group 
+     * @param {string} group
      * @returns {number}
      */
     this.getIndex = function (group) {
@@ -543,9 +543,9 @@ function ApiCache() {
      * Express middleware
      * @param {(string|number)} strDuration Duration to cache responses
      * for.
-     * @param {function(Object, Object):boolean} middlewareToggle 
+     * @param {function(Object, Object):boolean} middlewareToggle
      * @param {Object} localOptions Options for APICache
-     * @returns 
+     * @returns
      */
     this.middleware = function cache(strDuration, middlewareToggle, localOptions) {
         let duration = instance.getDuration(strDuration);
@@ -573,7 +573,7 @@ function ApiCache() {
          * A Function for non tracking performance
          */
         function NOOPCachePerformance() {
-            this.report = this.hit = this.miss = function () {}; // noop;
+            this.report = this.hit = this.miss = function () { }; // noop;
         }
 
         /**
@@ -762,8 +762,8 @@ function ApiCache() {
             }
             if (
                 req.headers["x-apicache-bypass"] ||
-        req.headers["x-apicache-force-fetch"] ||
-        (opt.respectCacheControl && req.headers["cache-control"] == "no-cache")
+                req.headers["x-apicache-force-fetch"] ||
+                (opt.respectCacheControl && req.headers["cache-control"] == "no-cache")
             ) {
                 return bypass();
             }
@@ -859,7 +859,7 @@ function ApiCache() {
 
     /**
      * Process options
-     * @param {Object} options 
+     * @param {Object} options
      * @returns {Object}
      */
     this.options = function (options) {

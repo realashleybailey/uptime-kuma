@@ -4,22 +4,44 @@
         <div v-if="enableEditMode" class="sidebar">
             <div class="sidebar-body">
                 <div class="my-3">
-                    <label for="slug" class="form-label">{{ $t("Slug") }}</label>
+                    <label for="slug" class="form-label">{{
+                        $t("Slug")
+                    }}</label>
                     <div class="input-group">
-                        <span id="basic-addon3" class="input-group-text">/status/</span>
-                        <input id="slug" v-model="config.slug" type="text" class="form-control">
+                        <span id="basic-addon3" class="input-group-text"
+                            >/status/</span
+                        >
+                        <input
+                            id="slug"
+                            v-model="config.slug"
+                            type="text"
+                            class="form-control"
+                        />
                     </div>
                 </div>
 
                 <div class="my-3">
-                    <label for="title" class="form-label">{{ $t("Title") }}</label>
-                    <input id="title" v-model="config.title" type="text" class="form-control">
+                    <label for="title" class="form-label">{{
+                        $t("Title")
+                    }}</label>
+                    <input
+                        id="title"
+                        v-model="config.title"
+                        type="text"
+                        class="form-control"
+                    />
                 </div>
 
                 <!-- Description -->
                 <div class="my-3">
-                    <label for="description" class="form-label">{{ $t("Description") }}</label>
-                    <textarea id="description" v-model="config.description" class="form-control"></textarea>
+                    <label for="description" class="form-label">{{
+                        $t("Description")
+                    }}</label>
+                    <textarea
+                        id="description"
+                        v-model="config.description"
+                        class="form-control"
+                    ></textarea>
                     <div class="form-text">
                         {{ $t("markdownSupported") }}
                     </div>
@@ -27,59 +49,127 @@
 
                 <!-- Footer Text -->
                 <div class="my-3">
-                    <label for="footer-text" class="form-label">{{ $t("Footer Text") }}</label>
-                    <textarea id="footer-text" v-model="config.footerText" class="form-control"></textarea>
+                    <label for="footer-text" class="form-label">{{
+                        $t("Footer Text")
+                    }}</label>
+                    <textarea
+                        id="footer-text"
+                        v-model="config.footerText"
+                        class="form-control"
+                    ></textarea>
                     <div class="form-text">
                         {{ $t("markdownSupported") }}
                     </div>
                 </div>
 
                 <div class="my-3 form-check form-switch">
-                    <input id="switch-theme" v-model="config.theme" class="form-check-input" type="checkbox" true-value="dark" false-value="light">
-                    <label class="form-check-label" for="switch-theme">{{ $t("Switch to Dark Theme") }}</label>
+                    <input
+                        id="switch-theme"
+                        v-model="config.theme"
+                        class="form-check-input"
+                        type="checkbox"
+                        true-value="dark"
+                        false-value="light"
+                    />
+                    <label class="form-check-label" for="switch-theme">{{
+                        $t("Switch to Dark Theme")
+                    }}</label>
                 </div>
 
                 <div class="my-3 form-check form-switch">
-                    <input id="showTags" v-model="config.showTags" class="form-check-input" type="checkbox">
-                    <label class="form-check-label" for="showTags">{{ $t("Show Tags") }}</label>
+                    <input
+                        id="showTags"
+                        v-model="config.showTags"
+                        class="form-check-input"
+                        type="checkbox"
+                    />
+                    <label class="form-check-label" for="showTags">{{
+                        $t("Show Tags")
+                    }}</label>
                 </div>
 
                 <!-- Show Powered By -->
                 <div class="my-3 form-check form-switch">
-                    <input id="show-powered-by" v-model="config.showPoweredBy" class="form-check-input" type="checkbox">
-                    <label class="form-check-label" for="show-powered-by">{{ $t("Show Powered By") }}</label>
+                    <input
+                        id="show-powered-by"
+                        v-model="config.showPoweredBy"
+                        class="form-check-input"
+                        type="checkbox"
+                    />
+                    <label class="form-check-label" for="show-powered-by">{{
+                        $t("Show Powered By")
+                    }}</label>
                 </div>
 
                 <div v-if="false" class="my-3">
-                    <label for="password" class="form-label">{{ $t("Password") }} <sup>{{ $t("Coming Soon") }}</sup></label>
-                    <input id="password" v-model="config.password" disabled type="password" autocomplete="new-password" class="form-control">
+                    <label for="password" class="form-label"
+                        >{{ $t("Password") }}
+                        <sup>{{ $t("Coming Soon") }}</sup></label
+                    >
+                    <input
+                        id="password"
+                        v-model="config.password"
+                        disabled
+                        type="password"
+                        autocomplete="new-password"
+                        class="form-control"
+                    />
                 </div>
 
                 <!-- Domain Name List -->
                 <div class="my-3">
                     <label class="form-label">
                         {{ $t("Domain Names") }}
-                        <font-awesome-icon icon="plus-circle" class="btn-add-domain action text-primary" @click="addDomainField" />
+                        <font-awesome-icon
+                            icon="plus-circle"
+                            class="btn-add-domain action text-primary"
+                            @click="addDomainField"
+                        />
                     </label>
 
                     <ul class="list-group domain-name-list">
-                        <li v-for="(domain, index) in config.domainNameList" :key="index" class="list-group-item">
-                            <input v-model="config.domainNameList[index]" type="text" class="no-bg domain-input" placeholder="example.com" />
-                            <font-awesome-icon icon="times" class="action remove ms-2 me-3 text-danger" @click="removeDomain(index)" />
+                        <li
+                            v-for="(domain, index) in config.domainNameList"
+                            :key="index"
+                            class="list-group-item"
+                        >
+                            <input
+                                v-model="config.domainNameList[index]"
+                                type="text"
+                                class="no-bg domain-input"
+                                placeholder="example.com"
+                            />
+                            <font-awesome-icon
+                                icon="times"
+                                class="action remove ms-2 me-3 text-danger"
+                                @click="removeDomain(index)"
+                            />
                         </li>
                     </ul>
                 </div>
 
                 <!-- Google Analytics -->
                 <div class="my-3">
-                    <label for="googleAnalyticsTag" class="form-label">{{ $t("Google Analytics ID") }}</label>
-                    <input id="googleAnalyticsTag" v-model="config.googleAnalyticsId" type="text" class="form-control">
+                    <label for="googleAnalyticsTag" class="form-label">{{
+                        $t("Google Analytics ID")
+                    }}</label>
+                    <input
+                        id="googleAnalyticsTag"
+                        v-model="config.googleAnalyticsId"
+                        type="text"
+                        class="form-control"
+                    />
                 </div>
 
                 <!-- Custom CSS -->
                 <div class="my-3">
                     <div class="mb-1">{{ $t("Custom CSS") }}</div>
-                    <prism-editor v-model="config.customCSS" class="css-editor" :highlight="highlighter" line-numbers></prism-editor>
+                    <prism-editor
+                        v-model="config.customCSS"
+                        class="css-editor"
+                        :highlight="highlighter"
+                        line-numbers
+                    ></prism-editor>
                 </div>
 
                 <div class="danger-zone">
@@ -105,17 +195,26 @@
         </div>
 
         <!-- Main Status Page -->
-        <div :class="{ edit: enableEditMode}" class="main">
+        <div :class="{ edit: enableEditMode }" class="main">
             <!-- Logo & Title -->
             <h1 class="mb-4 title-flex">
                 <!-- Logo -->
                 <span class="logo-wrapper" @click="showImageCropUploadMethod">
-                    <img :src="logoURL" alt class="logo me-2" :class="logoClass" />
-                    <font-awesome-icon v-if="enableEditMode" class="icon-upload" icon="upload" />
+                    <img
+                        :src="logoURL"
+                        alt
+                        class="logo me-2"
+                        :class="logoClass"
+                    />
+                    <font-awesome-icon
+                        v-if="enableEditMode"
+                        class="icon-upload"
+                        icon="upload"
+                    />
                 </span>
 
                 <!-- Uploader -->
-                <!--    url="/api/status-page/upload-logo" -->
+                <!--    url="/kuma/api/status-page/upload-logo" -->
                 <ImageCropUpload
                     v-model="showImageCropUpload"
                     field="img"
@@ -129,7 +228,12 @@
                 />
 
                 <!-- Title -->
-                <Editable v-model="config.title" tag="span" :contenteditable="editMode" :noNL="true" />
+                <Editable
+                    v-model="config.title"
+                    tag="span"
+                    :contenteditable="editMode"
+                    :noNL="true"
+                />
             </h1>
 
             <!-- Admin functions -->
@@ -140,14 +244,17 @@
                         {{ $t("Edit Status Page") }}
                     </button>
 
-                    <a href="/manage-status-page" class="btn btn-info">
+                    <a href="/kuma/manage-status-page" class="btn btn-info">
                         <font-awesome-icon icon="tachometer-alt" />
                         {{ $t("Go to Dashboard") }}
                     </a>
                 </div>
 
                 <div v-else>
-                    <button class="btn btn-primary btn-add-group me-2" @click="createIncident">
+                    <button
+                        class="btn btn-primary btn-add-group me-2"
+                        @click="createIncident"
+                    >
                         <font-awesome-icon icon="bullhorn" />
                         {{ $t("Create Incident") }}
                     </button>
@@ -155,57 +262,154 @@
             </div>
 
             <!-- Incident -->
-            <div v-if="incident !== null" class="shadow-box alert mb-4 p-4 incident" role="alert" :class="incidentClass">
+            <div
+                v-if="incident !== null"
+                class="shadow-box alert mb-4 p-4 incident"
+                role="alert"
+                :class="incidentClass"
+            >
                 <strong v-if="editIncidentMode">{{ $t("Title") }}:</strong>
-                <Editable v-model="incident.title" tag="h4" :contenteditable="editIncidentMode" :noNL="true" class="alert-heading" />
+                <Editable
+                    v-model="incident.title"
+                    tag="h4"
+                    :contenteditable="editIncidentMode"
+                    :noNL="true"
+                    class="alert-heading"
+                />
 
                 <strong v-if="editIncidentMode">{{ $t("Content") }}:</strong>
-                <Editable v-if="editIncidentMode" v-model="incident.content" tag="div" :contenteditable="editIncidentMode" class="content" />
+                <Editable
+                    v-if="editIncidentMode"
+                    v-model="incident.content"
+                    tag="div"
+                    :contenteditable="editIncidentMode"
+                    class="content"
+                />
                 <div v-if="editIncidentMode" class="form-text">
                     {{ $t("markdownSupported") }}
                 </div>
                 <!-- eslint-disable-next-line vue/no-v-html-->
-                <div v-if="! editIncidentMode" class="content" v-html="incidentHTML"></div>
+                <div
+                    v-if="!editIncidentMode"
+                    class="content"
+                    v-html="incidentHTML"
+                ></div>
 
                 <!-- Incident Date -->
                 <div class="date mt-3">
-                    {{ $t("Date Created") }}: {{ $root.datetime(incident.createdDate) }} ({{ dateFromNow(incident.createdDate) }})<br />
+                    {{ $t("Date Created") }}:
+                    {{ $root.datetime(incident.createdDate) }} ({{
+                        dateFromNow(incident.createdDate)
+                    }})<br />
                     <span v-if="incident.lastUpdatedDate">
-                        {{ $t("Last Updated") }}: {{ $root.datetime(incident.lastUpdatedDate) }} ({{ dateFromNow(incident.lastUpdatedDate) }})
+                        {{ $t("Last Updated") }}:
+                        {{ $root.datetime(incident.lastUpdatedDate) }} ({{
+                            dateFromNow(incident.lastUpdatedDate)
+                        }})
                     </span>
                 </div>
 
                 <div v-if="editMode" class="mt-3">
-                    <button v-if="editIncidentMode" class="btn btn-light me-2" @click="postIncident">
+                    <button
+                        v-if="editIncidentMode"
+                        class="btn btn-light me-2"
+                        @click="postIncident"
+                    >
                         <font-awesome-icon icon="bullhorn" />
                         {{ $t("Post") }}
                     </button>
 
-                    <button v-if="!editIncidentMode && incident.id" class="btn btn-light me-2" @click="editIncident">
+                    <button
+                        v-if="!editIncidentMode && incident.id"
+                        class="btn btn-light me-2"
+                        @click="editIncident"
+                    >
                         <font-awesome-icon icon="edit" />
                         {{ $t("Edit") }}
                     </button>
 
-                    <button v-if="editIncidentMode" class="btn btn-light me-2" @click="cancelIncident">
+                    <button
+                        v-if="editIncidentMode"
+                        class="btn btn-light me-2"
+                        @click="cancelIncident"
+                    >
                         <font-awesome-icon icon="times" />
                         {{ $t("Cancel") }}
                     </button>
 
-                    <div v-if="editIncidentMode" class="dropdown d-inline-block me-2">
-                        <button id="dropdownMenuButton1" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div
+                        v-if="editIncidentMode"
+                        class="dropdown d-inline-block me-2"
+                    >
+                        <button
+                            id="dropdownMenuButton1"
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
                             {{ $t("Style") }}: {{ $t(incident.style) }}
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'info'">{{ $t("info") }}</a></li>
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'warning'">{{ $t("warning") }}</a></li>
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'danger'">{{ $t("danger") }}</a></li>
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'primary'">{{ $t("primary") }}</a></li>
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'light'">{{ $t("light") }}</a></li>
-                            <li><a class="dropdown-item" href="#" @click="incident.style = 'dark'">{{ $t("dark") }}</a></li>
+                        <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton1"
+                        >
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'info'"
+                                    >{{ $t("info") }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'warning'"
+                                    >{{ $t("warning") }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'danger'"
+                                    >{{ $t("danger") }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'primary'"
+                                    >{{ $t("primary") }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'light'"
+                                    >{{ $t("light") }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click="incident.style = 'dark'"
+                                    >{{ $t("dark") }}</a
+                                >
+                            </li>
                         </ul>
                     </div>
 
-                    <button v-if="!editIncidentMode && incident.id" class="btn btn-light me-2" @click="unpinIncident">
+                    <button
+                        v-if="!editIncidentMode && incident.id"
+                        class="btn btn-light me-2"
+                        @click="unpinIncident"
+                    >
                         <font-awesome-icon icon="unlink" />
                         {{ $t("Unpin") }}
                     </button>
@@ -213,8 +417,13 @@
             </div>
 
             <!-- Overall Status -->
-            <div class="shadow-box list  p-4 overall-status mb-4">
-                <div v-if="Object.keys($root.publicMonitorList).length === 0 && loadedData">
+            <div class="shadow-box list p-4 overall-status mb-4">
+                <div
+                    v-if="
+                        Object.keys($root.publicMonitorList).length === 0 &&
+                        loadedData
+                    "
+                >
                     <font-awesome-icon icon="question-circle" class="ok" />
                     {{ $t("No Services") }}
                 </div>
@@ -226,7 +435,10 @@
                     </div>
 
                     <div v-else-if="partialDown">
-                        <font-awesome-icon icon="exclamation-circle" class="warning" />
+                        <font-awesome-icon
+                            icon="exclamation-circle"
+                            class="warning"
+                        />
                         {{ $t("Partially Degraded Service") }}
                     </div>
 
@@ -236,12 +448,18 @@
                     </div>
 
                     <div v-else-if="isMaintenance">
-                        <font-awesome-icon icon="wrench" class="status-maintenance" />
+                        <font-awesome-icon
+                            icon="wrench"
+                            class="status-maintenance"
+                        />
                         {{ $t("maintenanceStatus-under-maintenance") }}
                     </div>
 
                     <div v-else>
-                        <font-awesome-icon icon="question-circle" style="color: #efefef;" />
+                        <font-awesome-icon
+                            icon="question-circle"
+                            style="color: #efefef"
+                        />
                     </div>
                 </template>
             </div>
@@ -249,25 +467,43 @@
             <!-- Maintenance -->
             <template v-if="maintenanceList.length > 0">
                 <div
-                    v-for="maintenance in maintenanceList" :key="maintenance.id"
-                    class="shadow-box alert mb-4 p-3 bg-maintenance mt-4 position-relative" role="alert"
+                    v-for="maintenance in maintenanceList"
+                    :key="maintenance.id"
+                    class="shadow-box alert mb-4 p-3 bg-maintenance mt-4 position-relative"
+                    role="alert"
                 >
                     <h4 class="alert-heading">{{ maintenance.title }}</h4>
                     <!-- eslint-disable-next-line vue/no-v-html-->
-                    <div class="content" v-html="maintenanceHTML(maintenance.description)"></div>
+                    <div
+                        class="content"
+                        v-html="maintenanceHTML(maintenance.description)"
+                    ></div>
                     <MaintenanceTime :maintenance="maintenance" />
                 </div>
             </template>
 
             <!-- Description -->
             <strong v-if="editMode">{{ $t("Description") }}:</strong>
-            <Editable v-if="enableEditMode" v-model="config.description" :contenteditable="editMode" tag="div" class="mb-4 description" />
+            <Editable
+                v-if="enableEditMode"
+                v-model="config.description"
+                :contenteditable="editMode"
+                tag="div"
+                class="mb-4 description"
+            />
             <!-- eslint-disable-next-line vue/no-v-html-->
-            <div v-if="! enableEditMode" class="alert-heading p-2" v-html="descriptionHTML"></div>
+            <div
+                v-if="!enableEditMode"
+                class="alert-heading p-2"
+                v-html="descriptionHTML"
+            ></div>
 
             <div v-if="editMode" class="mb-4">
                 <div>
-                    <button class="btn btn-primary btn-add-group me-2" @click="addGroup">
+                    <button
+                        class="btn btn-primary btn-add-group me-2"
+                        @click="addGroup"
+                    >
                         <font-awesome-icon icon="plus" />
                         {{ $t("Add Group") }}
                     </button>
@@ -277,39 +513,79 @@
                     <div v-if="allMonitorList.length > 0 && loadedData">
                         <label>{{ $t("Add a monitor") }}:</label>
                         <select v-model="selectedMonitor" class="form-control">
-                            <option v-for="monitor in allMonitorList" :key="monitor.id" :value="monitor">{{ monitor.name }}</option>
+                            <option
+                                v-for="monitor in allMonitorList"
+                                :key="monitor.id"
+                                :value="monitor"
+                            >
+                                {{ monitor.name }}
+                            </option>
                         </select>
                     </div>
                     <div v-else class="text-center">
-                        {{ $t("No monitors available.") }}  <router-link to="/add">{{ $t("Add one") }}</router-link>
+                        {{ $t("No monitors available.") }}
+                        <router-link to="/kuma/add">{{
+                            $t("Add one")
+                        }}</router-link>
                     </div>
                 </div>
             </div>
 
             <div class="mb-4">
-                <div v-if="$root.publicGroupList.length === 0 && loadedData" class="text-center">
+                <div
+                    v-if="$root.publicGroupList.length === 0 && loadedData"
+                    class="text-center"
+                >
                     <!-- 👀 Nothing here, please add a group or a monitor. -->
                     👀 {{ $t("statusPageNothing") }}
                 </div>
 
-                <PublicGroupList :edit-mode="enableEditMode" :show-tags="config.showTags" />
+                <PublicGroupList
+                    :edit-mode="enableEditMode"
+                    :show-tags="config.showTags"
+                />
             </div>
 
             <footer class="mt-5 mb-4">
                 <div class="custom-footer-text text-start">
-                    <strong v-if="enableEditMode">{{ $t("Custom Footer") }}:</strong>
+                    <strong v-if="enableEditMode"
+                        >{{ $t("Custom Footer") }}:</strong
+                    >
                 </div>
-                <Editable v-if="enableEditMode" v-model="config.footerText" tag="div" :contenteditable="enableEditMode" :noNL="false" class="alert-heading p-2" />
+                <Editable
+                    v-if="enableEditMode"
+                    v-model="config.footerText"
+                    tag="div"
+                    :contenteditable="enableEditMode"
+                    :noNL="false"
+                    class="alert-heading p-2"
+                />
                 <!-- eslint-disable-next-line vue/no-v-html-->
-                <div v-if="! enableEditMode" class="alert-heading p-2" v-html="footerHTML"></div>
+                <div
+                    v-if="!enableEditMode"
+                    class="alert-heading p-2"
+                    v-html="footerHTML"
+                ></div>
 
                 <p v-if="config.showPoweredBy">
-                    {{ $t("Powered by") }} <a target="_blank" rel="noopener noreferrer" href="https://github.com/louislam/uptime-kuma">{{ $t("Uptime Kuma" ) }}</a>
+                    {{ $t("Powered by") }}
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://github.com/realashleybailey/uptime-kuma"
+                        >{{ $t("Uptime Kuma") }}</a
+                    >
                 </p>
             </footer>
         </div>
 
-        <Confirm ref="confirmDelete" btn-style="btn-danger" :yes-text="$t('Yes')" :no-text="$t('No')" @yes="deleteStatusPage">
+        <Confirm
+            ref="confirmDelete"
+            btn-style="btn-danger"
+            :yes-text="$t('Yes')"
+            :no-text="$t('No')"
+            @yes="deleteStatusPage"
+        >
             {{ $t("deleteStatusPageMsg") }}
         </Confirm>
 
@@ -338,7 +614,14 @@ import Confirm from "../components/Confirm.vue";
 import PublicGroupList from "../components/PublicGroupList.vue";
 import MaintenanceTime from "../components/MaintenanceTime.vue";
 import { getResBaseURL } from "../util-frontend";
-import { STATUS_PAGE_ALL_DOWN, STATUS_PAGE_ALL_UP, STATUS_PAGE_MAINTENANCE, STATUS_PAGE_PARTIAL_DOWN, UP, MAINTENANCE } from "../util.ts";
+import {
+    STATUS_PAGE_ALL_DOWN,
+    STATUS_PAGE_ALL_UP,
+    STATUS_PAGE_MAINTENANCE,
+    STATUS_PAGE_PARTIAL_DOWN,
+    UP,
+    MAINTENANCE,
+} from "../util.ts";
 
 const toast = useToast();
 
@@ -348,11 +631,10 @@ const leavePageMsg = "Do you really want to leave? you have unsaved changes!";
 let feedInterval;
 
 const favicon = new Favico({
-    animation: "none"
+    animation: "none",
 });
 
 export default {
-
     components: {
         PublicGroupList,
         ImageCropUpload,
@@ -403,7 +685,6 @@ export default {
         };
     },
     computed: {
-
         logoURL() {
             if (this.imgDataUrl.startsWith("data:")) {
                 return this.imgDataUrl;
@@ -419,7 +700,10 @@ export default {
             let result = [];
 
             for (let id in this.$root.monitorList) {
-                if (this.$root.monitorList[id] && ! (id in this.$root.publicMonitorList)) {
+                if (
+                    this.$root.monitorList[id] &&
+                    !(id in this.$root.publicMonitorList)
+                ) {
                     let monitor = this.$root.monitorList[id];
                     result.push(monitor);
                 }
@@ -458,7 +742,6 @@ export default {
         },
 
         overallStatus() {
-
             if (Object.keys(this.$root.publicLastHeartbeatList).length === 0) {
                 return -1;
             }
@@ -478,7 +761,7 @@ export default {
                 }
             }
 
-            if (! hasUp) {
+            if (!hasUp) {
                 status = STATUS_PAGE_ALL_DOWN;
             }
 
@@ -526,27 +809,26 @@ export default {
         },
     },
     watch: {
-
         /**
          * If connected to the socket and logged in, request private data of this statusPage
          * @param connected
          */
         "$root.loggedIn"(loggedIn) {
             if (loggedIn) {
-                this.$root.getSocket().emit("getStatusPage", this.slug, (res) => {
-                    if (res.ok) {
-                        this.config = res.config;
+                this.$root
+                    .getSocket()
+                    .emit("getStatusPage", this.slug, (res) => {
+                        if (res.ok) {
+                            this.config = res.config;
 
-                        if (!this.config.customCSS) {
-                            this.config.customCSS = "body {\n" +
-                                "  \n" +
-                                "}\n";
+                            if (!this.config.customCSS) {
+                                this.config.customCSS =
+                                    "body {\n" + "  \n" + "}\n";
+                            }
+                        } else {
+                            toast.error(res.msg);
                         }
-
-                    } else {
-                        toast.error(res.msg);
-                    }
-                });
+                    });
             }
         },
 
@@ -583,17 +865,20 @@ export default {
             if (count > 0) {
                 for (let group of this.$root.publicGroupList) {
                     for (let monitor of group.monitorList) {
-                        if (monitor.tags === undefined && this.$root.monitorList[monitor.id]) {
-                            monitor.tags = this.$root.monitorList[monitor.id].tags;
+                        if (
+                            monitor.tags === undefined &&
+                            this.$root.monitorList[monitor.id]
+                        ) {
+                            monitor.tags =
+                                this.$root.monitorList[monitor.id].tags;
                         }
                     }
                 }
             }
-        }
-
+        },
     },
     async created() {
-        this.hasToken = ("token" in this.$root.storage());
+        this.hasToken = "token" in this.$root.storage();
 
         // Browser change page
         // https://stackoverflow.com/questions/7317273/warn-user-before-leaving-web-page-with-unsaved-changes
@@ -616,26 +901,28 @@ export default {
             this.slug = "default";
         }
 
-        this.getData().then((res) => {
-            this.config = res.data.config;
+        this.getData()
+            .then((res) => {
+                this.config = res.data.config;
 
-            if (!this.config.domainNameList) {
-                this.config.domainNameList = [];
-            }
+                if (!this.config.domainNameList) {
+                    this.config.domainNameList = [];
+                }
 
-            if (this.config.icon) {
-                this.imgDataUrl = this.config.icon;
-            }
+                if (this.config.icon) {
+                    this.imgDataUrl = this.config.icon;
+                }
 
-            this.incident = res.data.incident;
-            this.maintenanceList = res.data.maintenanceList;
-            this.$root.publicGroupList = res.data.publicGroupList;
-        }).catch( function (error) {
-            if (error.response.status === 404) {
-                location.href = "/page-not-found";
-            }
-            console.log(error);
-        });
+                this.incident = res.data.incident;
+                this.maintenanceList = res.data.maintenanceList;
+                this.$root.publicGroupList = res.data.publicGroupList;
+            })
+            .catch(function (error) {
+                if (error.response.status === 404) {
+                    location.href = "/kuma/page-not-found";
+                }
+                console.log(error);
+            });
 
         // 5mins a loop
         this.updateHeartbeatList();
@@ -650,7 +937,6 @@ export default {
         }
     },
     methods: {
-
         /**
          * Get status page data
          * It should be preloaded in window.preloadData
@@ -658,11 +944,13 @@ export default {
          */
         getData: function () {
             if (window.preloadData) {
-                return new Promise(resolve => resolve({
-                    data: window.preloadData
-                }));
+                return new Promise((resolve) =>
+                    resolve({
+                        data: window.preloadData,
+                    })
+                );
             } else {
-                return axios.get("/api/status-page/" + this.slug);
+                return axios.get("/kuma/api/status-page/" + this.slug);
             }
         },
 
@@ -678,29 +966,37 @@ export default {
         /** Update the heartbeat list and update favicon if neccessary */
         updateHeartbeatList() {
             // If editMode, it will use the data from websocket.
-            if (! this.editMode) {
-                axios.get("/api/status-page/heartbeat/" + this.slug).then((res) => {
-                    const { heartbeatList, uptimeList } = res.data;
+            if (!this.editMode) {
+                axios
+                    .get("/kuma/api/status-page/heartbeat/" + this.slug)
+                    .then((res) => {
+                        const { heartbeatList, uptimeList } = res.data;
 
-                    this.$root.heartbeatList = heartbeatList;
-                    this.$root.uptimeList = uptimeList;
+                        this.$root.heartbeatList = heartbeatList;
+                        this.$root.uptimeList = uptimeList;
 
-                    const heartbeatIds = Object.keys(heartbeatList);
-                    const downMonitors = heartbeatIds.reduce((downMonitorsAmount, currentId) => {
-                        const monitorHeartbeats = heartbeatList[currentId];
-                        const lastHeartbeat = monitorHeartbeats.at(-1);
+                        const heartbeatIds = Object.keys(heartbeatList);
+                        const downMonitors = heartbeatIds.reduce(
+                            (downMonitorsAmount, currentId) => {
+                                const monitorHeartbeats =
+                                    heartbeatList[currentId];
+                                const lastHeartbeat = monitorHeartbeats.at(-1);
 
-                        if (lastHeartbeat) {
-                            return lastHeartbeat.status === 0 ? downMonitorsAmount + 1 : downMonitorsAmount;
-                        } else {
-                            return downMonitorsAmount;
-                        }
-                    }, 0);
+                                if (lastHeartbeat) {
+                                    return lastHeartbeat.status === 0
+                                        ? downMonitorsAmount + 1
+                                        : downMonitorsAmount;
+                                } else {
+                                    return downMonitorsAmount;
+                                }
+                            },
+                            0
+                        );
 
-                    favicon.badge(downMonitors);
+                        favicon.badge(downMonitors);
 
-                    this.loadedData = true;
-                });
+                        this.loadedData = true;
+                    });
             }
         },
 
@@ -721,27 +1017,36 @@ export default {
             let startTime = new Date();
             this.config.slug = this.config.slug.trim().toLowerCase();
 
-            this.$root.getSocket().emit("saveStatusPage", this.slug, this.config, this.imgDataUrl, this.$root.publicGroupList, (res) => {
-                if (res.ok) {
-                    this.enableEditMode = false;
-                    this.$root.publicGroupList = res.publicGroupList;
+            this.$root
+                .getSocket()
+                .emit(
+                    "saveStatusPage",
+                    this.slug,
+                    this.config,
+                    this.imgDataUrl,
+                    this.$root.publicGroupList,
+                    (res) => {
+                        if (res.ok) {
+                            this.enableEditMode = false;
+                            this.$root.publicGroupList = res.publicGroupList;
 
-                    // Add some delay, so that the side menu animation would be better
-                    let endTime = new Date();
-                    let time = 100 - (endTime - startTime) / 1000;
+                            // Add some delay, so that the side menu animation would be better
+                            let endTime = new Date();
+                            let time = 100 - (endTime - startTime) / 1000;
 
-                    if (time < 0) {
-                        time = 0;
+                            if (time < 0) {
+                                time = 0;
+                            }
+
+                            setTimeout(() => {
+                                location.href =
+                                    "/kuma/status/" + this.config.slug;
+                            }, time);
+                        } else {
+                            toast.error(res.msg);
+                        }
                     }
-
-                    setTimeout(() => {
-                        location.href = "/status/" + this.config.slug;
-                    }, time);
-
-                } else {
-                    toast.error(res.msg);
-                }
-            });
+                );
         },
 
         /** Show dialog confirming deletion */
@@ -751,14 +1056,16 @@ export default {
 
         /** Request deletion of this status page */
         deleteStatusPage() {
-            this.$root.getSocket().emit("deleteStatusPage", this.slug, (res) => {
-                if (res.ok) {
-                    this.enableEditMode = false;
-                    location.href = "/manage-status-page";
-                } else {
-                    toast.error(res.msg);
-                }
-            });
+            this.$root
+                .getSocket()
+                .emit("deleteStatusPage", this.slug, (res) => {
+                    if (res.ok) {
+                        this.enableEditMode = false;
+                        location.href = "/kuma/manage-status-page";
+                    } else {
+                        toast.error(res.msg);
+                    }
+                });
         },
 
         /**
@@ -791,7 +1098,7 @@ export default {
 
         /** Discard changes to status page */
         discard() {
-            location.href = "/status/" + this.slug;
+            location.href = "/kuma/status/" + this.slug;
         },
 
         /**
@@ -831,17 +1138,16 @@ export default {
                 return;
             }
 
-            this.$root.getSocket().emit("postIncident", this.slug, this.incident, (res) => {
-
-                if (res.ok) {
-                    this.enableEditIncidentMode = false;
-                    this.incident = res.incident;
-                } else {
-                    toast.error(res.msg);
-                }
-
-            });
-
+            this.$root
+                .getSocket()
+                .emit("postIncident", this.slug, this.incident, (res) => {
+                    if (res.ok) {
+                        this.enableEditIncidentMode = false;
+                        this.incident = res.incident;
+                    } else {
+                        toast.error(res.msg);
+                    }
+                });
         },
 
         /** Click Edit Button */
@@ -891,8 +1197,7 @@ export default {
         maintenanceHTML(description) {
             return DOMPurify.sanitize(marked(description));
         },
-
-    }
+    },
 };
 </script>
 
@@ -1117,5 +1422,4 @@ footer {
         font-weight: bold;
     }
 }
-
 </style>

@@ -1,7 +1,7 @@
 # Uptime Kuma
 
-<a target="_blank" href="https://github.com/louislam/uptime-kuma"><img src="https://img.shields.io/github/stars/louislam/uptime-kuma" /></a> <a target="_blank" href="https://hub.docker.com/r/louislam/uptime-kuma"><img src="https://img.shields.io/docker/pulls/louislam/uptime-kuma" /></a> <a target="_blank" href="https://hub.docker.com/r/louislam/uptime-kuma"><img src="https://img.shields.io/docker/v/louislam/uptime-kuma/latest?label=docker%20image%20ver." /></a> <a target="_blank" href="https://github.com/louislam/uptime-kuma"><img src="https://img.shields.io/github/last-commit/louislam/uptime-kuma" /></a>  <a target="_blank" href="https://opencollective.com/uptime-kuma"><img src="https://opencollective.com/uptime-kuma/total/badge.svg?label=Open%20Collective%20Backers&color=brightgreen" /></a>
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/louislam?label=GitHub%20Sponsors)](https://github.com/sponsors/louislam) <a href="https://weblate.kuma.pet/projects/uptime-kuma/uptime-kuma/">
+<a target="_blank" href="https://github.com/realashleybailey/uptime-kuma"><img src="https://img.shields.io/github/stars/realashleybailey/uptime-kuma" /></a> <a target="_blank" href="https://hub.docker.com/r/realashleybailey/uptime-kuma"><img src="https://img.shields.io/docker/pulls/realashleybailey/uptime-kuma" /></a> <a target="_blank" href="https://hub.docker.com/r/realashleybailey/uptime-kuma"><img src="https://img.shields.io/docker/v/realashleybailey/uptime-kuma/latest?label=docker%20image%20ver." /></a> <a target="_blank" href="https://github.com/realashleybailey/uptime-kuma"><img src="https://img.shields.io/github/last-commit/realashleybailey/uptime-kuma" /></a>  <a target="_blank" href="https://opencollective.com/uptime-kuma"><img src="https://opencollective.com/uptime-kuma/total/badge.svg?label=Open%20Collective%20Backers&color=brightgreen" /></a>
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/realashleybailey?label=GitHub%20Sponsors)](https://github.com/sponsors/realashleybailey) <a href="https://weblate.kuma.pet/projects/uptime-kuma/uptime-kuma/">
 <img src="https://weblate.kuma.pet/widgets/uptime-kuma/-/svg-badge.svg" alt="Translation status" />
 </a>
 
@@ -17,7 +17,7 @@ Uptime Kuma is an easy-to-use self-hosted monitoring tool.
 
 Try it!
 
-- Tokyo Demo Server: https://demo.uptime.kuma.pet (Sponsored by [Uptime Kuma Sponsors](https://github.com/louislam/uptime-kuma#%EF%B8%8F-sponsors))
+- Tokyo Demo Server: https://demo.uptime.kuma.pet (Sponsored by [Uptime Kuma Sponsors](https://github.com/realashleybailey/uptime-kuma#%EF%B8%8F-sponsors))
 
 It is a temporary live demo, all data will be deleted after 10 minutes. Use the one that is closer to you, but I suggest that you should install and try it out for the best demo experience.
 
@@ -25,9 +25,9 @@ It is a temporary live demo, all data will be deleted after 10 minutes. Use the 
 
 * Monitoring uptime for HTTP(s) / TCP / HTTP(s) Keyword / Ping / DNS Record / Push / Steam Game Server / Docker Containers
 * Fancy, Reactive, Fast UI/UX
-* Notifications via Telegram, Discord, Gotify, Slack, Pushover, Email (SMTP), and [90+ notification services, click here for the full list](https://github.com/louislam/uptime-kuma/tree/master/src/components/notifications)
+* Notifications via Telegram, Discord, Gotify, Slack, Pushover, Email (SMTP), and [90+ notification services, click here for the full list](https://github.com/realashleybailey/uptime-kuma/tree/master/src/components/notifications)
 * 20 second intervals
-* [Multi Languages](https://github.com/louislam/uptime-kuma/tree/master/src/lang)
+* [Multi Languages](https://github.com/realashleybailey/uptime-kuma/tree/master/src/lang)
 * Multiple status pages
 * Map status pages to specific domains
 * Ping chart
@@ -40,7 +40,7 @@ It is a temporary live demo, all data will be deleted after 10 minutes. Use the 
 ### 🐳 Docker
 
 ```bash
-docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1
+docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma realashleybailey/uptime-kuma:1
 ```
 
 ⚠️ Please use a **local volume** only. Other types such as NFS are not supported.
@@ -59,7 +59,7 @@ Required Tools:
 # Update your npm to the latest version
 npm install npm -g
 
-git clone https://github.com/louislam/uptime-kuma.git
+git clone https://github.com/realashleybailey/uptime-kuma.git
 cd uptime-kuma
 npm run setup
 
@@ -91,23 +91,23 @@ pm2 save && pm2 startup
 
 If you need more options or need to browse via a reverse proxy, please read:
 
-https://github.com/louislam/uptime-kuma/wiki/%F0%9F%94%A7-How-to-Install
+https://github.com/realashleybailey/uptime-kuma/wiki/%F0%9F%94%A7-How-to-Install
 
 ## 🆙 How to Update
 
 Please read:
 
-https://github.com/louislam/uptime-kuma/wiki/%F0%9F%86%99-How-to-Update
+https://github.com/realashleybailey/uptime-kuma/wiki/%F0%9F%86%99-How-to-Update
 
 ## 🆕 What's Next?
 
 I will mark requests/issues to the next milestone.
 
-https://github.com/louislam/uptime-kuma/milestones
+https://github.com/realashleybailey/uptime-kuma/milestones
 
 Project Plan:
 
-https://github.com/users/louislam/projects/4/views/1
+https://github.com/users/realashleybailey/projects/4/views/1
 
 ## ❤️ Sponsors
 
@@ -127,11 +127,11 @@ Status Page:
 
 Settings Page:
 
-<img src="https://louislam.net/uptimekuma/2.jpg" width="400" alt="" />
+<img src="https://realashleybailey.net/uptimekuma/2.jpg" width="400" alt="" />
 
 Telegram Notification Sample:
 
-<img src="https://louislam.net/uptimekuma/3.jpg" width="400" alt="" />
+<img src="https://realashleybailey.net/uptimekuma/3.jpg" width="400" alt="" />
 
 ## Motivation
 
@@ -148,11 +148,11 @@ If you love this project, please consider giving me a ⭐.
 
 ### Issues Page
 
-You can discuss or ask for help in [issues](https://github.com/louislam/uptime-kuma/issues).
+You can discuss or ask for help in [issues](https://github.com/realashleybailey/uptime-kuma/issues).
 
 ### Subreddit
 
-My Reddit account: [u/louislamlam](https://reddit.com/u/louislamlam).  
+My Reddit account: [u/realashleybaileylam](https://reddit.com/u/realashleybaileylam).  
 You can mention me if you ask a question on Reddit.
 [r/Uptime kuma](https://www.reddit.com/r/UptimeKuma/)
 
@@ -163,19 +163,19 @@ You can mention me if you ask a question on Reddit.
 There are a lot of pull requests right now, but I don't have time to test them all.
 
 If you want to help, you can check this:
-https://github.com/louislam/uptime-kuma/wiki/Test-Pull-Requests
+https://github.com/realashleybailey/uptime-kuma/wiki/Test-Pull-Requests
 
 ### Test Beta Version
 
-Check out the latest beta release here: https://github.com/louislam/uptime-kuma/releases
+Check out the latest beta release here: https://github.com/realashleybailey/uptime-kuma/releases
 
 ### Bug Reports / Feature Requests
-If you want to report a bug or request a new feature, feel free to open a [new issue](https://github.com/louislam/uptime-kuma/issues).
+If you want to report a bug or request a new feature, feel free to open a [new issue](https://github.com/realashleybailey/uptime-kuma/issues).
 
 ### Translations
-If you want to translate Uptime Kuma into your language, please visit [Weblate Readme](https://github.com/louislam/uptime-kuma/blob/master/src/lang/README.md).
+If you want to translate Uptime Kuma into your language, please visit [Weblate Readme](https://github.com/realashleybailey/uptime-kuma/blob/master/src/lang/README.md).
 
 Feel free to correct my grammar in this README, source code, or wiki, as my mother language is not English and my grammar is not that great.
 
 ### Create Pull Requests
-If you want to modify Uptime Kuma, please read this guide and follow the rules here: https://github.com/louislam/uptime-kuma/blob/master/CONTRIBUTING.md
+If you want to modify Uptime Kuma, please read this guide and follow the rules here: https://github.com/realashleybailey/uptime-kuma/blob/master/CONTRIBUTING.md

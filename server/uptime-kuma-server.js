@@ -98,7 +98,9 @@ class UptimeKumaServer {
             }
         }
 
-        this.io = new Server(this.httpServer);
+        this.io = new Server(this.httpServer, {
+            path: "/kuma/socket.io",
+        });
     }
 
     /** Initialise app after the database has been set up */

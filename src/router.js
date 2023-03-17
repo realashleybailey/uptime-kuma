@@ -36,13 +36,17 @@ import About from "./components/settings/About.vue";
 const routes = [
     {
         path: "/",
+        redirect: "/kuma/",
+    },
+    {
+        path: "/kuma/",
         component: Entry,
     },
     {
         // If it is "/dashboard", the active link is not working
         // If it is "", it overrides the "/" unexpectedly
         // Give a random name to solve the problem.
-        path: "/empty",
+        path: "/kuma/empty",
         component: Layout,
         children: [
             {
@@ -51,11 +55,11 @@ const routes = [
                 children: [
                     {
                         name: "DashboardHome",
-                        path: "/dashboard",
+                        path: "/kuma/dashboard",
                         component: DashboardHome,
                         children: [
                             {
-                                path: "/dashboard/:id",
+                                path: "/kuma/dashboard/:id",
                                 component: EmptyLayout,
                                 children: [
                                     {
@@ -69,21 +73,21 @@ const routes = [
                                 ],
                             },
                             {
-                                path: "/clone/:id",
+                                path: "/kuma/clone/:id",
                                 component: EditMonitor,
                             },
                             {
-                                path: "/add",
+                                path: "/kuma/add",
                                 component: EditMonitor,
                             },
                         ],
                     },
                     {
-                        path: "/list",
+                        path: "/kuma/list",
                         component: List,
                     },
                     {
-                        path: "/settings",
+                        path: "/kuma/settings",
                         component: Settings,
                         children: [
                             {
@@ -141,27 +145,27 @@ const routes = [
                         ]
                     },
                     {
-                        path: "/manage-status-page",
+                        path: "/kuma/manage-status-page",
                         component: ManageStatusPage,
                     },
                     {
-                        path: "/add-status-page",
+                        path: "/kuma/add-status-page",
                         component: AddStatusPage,
                     },
                     {
-                        path: "/maintenance",
+                        path: "/kuma/maintenance",
                         component: ManageMaintenance,
                     },
                     {
-                        path: "/maintenance/:id",
+                        path: "/kuma/maintenance/:id",
                         component: MaintenanceDetails,
                     },
                     {
-                        path: "/add-maintenance",
+                        path: "/kuma/add-maintenance",
                         component: EditMaintenance,
                     },
                     {
-                        path: "/maintenance/edit/:id",
+                        path: "/kuma/maintenance/edit/:id",
                         component: EditMaintenance,
                     },
                 ],
@@ -169,23 +173,23 @@ const routes = [
         ],
     },
     {
-        path: "/setup",
+        path: "/kuma/setup",
         component: Setup,
     },
     {
-        path: "/status-page",
+        path: "/kuma/status-page",
         component: StatusPage,
     },
     {
-        path: "/status",
+        path: "/kuma/status",
         component: StatusPage,
     },
     {
-        path: "/status/:slug",
+        path: "/kuma/status/:slug",
         component: StatusPage,
     },
     {
-        path: "/:pathMatch(.*)*",
+        path: "/kuma/:pathMatch(.*)*",
         component: NotFound,
     },
 ];

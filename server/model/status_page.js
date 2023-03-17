@@ -12,7 +12,7 @@ class StatusPage extends BeanModel {
      * Like this: { "test-uptime.kuma.pet": "default" }
      * @type {{}}
      */
-    static domainMappingList = { };
+    static domainMappingList = {};
 
     /**
      *
@@ -67,7 +67,7 @@ class StatusPage extends BeanModel {
         head.append(ogDescription);
 
         // Preload data
-        // Add jsesc, fix https://github.com/louislam/uptime-kuma/issues/2186
+        // Add jsesc, fix https://github.com/realashleybailey/uptime-kuma/issues/2186
         const escapedJSONObject = jsesc(await StatusPage.getStatusPageData(statusPage), {
             "isScriptContext": true
         });
@@ -301,7 +301,7 @@ class StatusPage extends BeanModel {
                     ON maintenance_timeslot.maintenance_id = maintenance.id
                 WHERE ${activeCondition}
                 ORDER BY maintenance.end_date
-            `, [ statusPageId ]));
+            `, [statusPageId]));
 
             for (const bean of maintenanceBeanList) {
                 publicMaintenanceList.push(await bean.toPublicJSON());

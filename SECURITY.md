@@ -2,8 +2,8 @@
 
 ## Reporting a Vulnerability
 
-1. Please report security issues to https://github.com/louislam/uptime-kuma/security/advisories/new.
-1. Please also create a empty security issues for alerting me, as GitHub Advisory do not send a notification, I probably will miss without this. https://github.com/louislam/uptime-kuma/issues/new?assignees=&labels=help&template=security.md
+1. Please report security issues to https://github.com/realashleybailey/uptime-kuma/security/advisories/new.
+1. Please also create a empty security issues for alerting me, as GitHub Advisory do not send a notification, I probably will miss without this. https://github.com/realashleybailey/uptime-kuma/issues/new?assignees=&labels=help&template=security.md
 
 Do not use the public issue tracker or discuss it in the public as it will cause more damage.
 

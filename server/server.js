@@ -32,7 +32,7 @@ log.info("server", "Welcome to Uptime Kuma");
 log.debug("server", "Arguments");
 log.debug("server", args);
 
-if (! process.env.NODE_ENV) {
+if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = "production";
 }
 
@@ -104,7 +104,7 @@ if (hostname) {
     log.info("server", "Custom hostname: " + hostname);
 }
 
-const port = [ args.port, process.env.UPTIME_KUMA_PORT, process.env.PORT, 3001 ]
+const port = [args.port, process.env.UPTIME_KUMA_PORT, process.env.PORT, 3001]
     .map(portValue => parseInt(portValue))
     .find(portValue => !isNaN(portValue));
 
@@ -183,7 +183,7 @@ let needSetup = false;
     // ***************************
 
     // Entry Page
-    app.get("/", async (request, response) => {
+    app.get("/kuma/", async (request, response) => {
         let hostname = request.hostname;
         if (await setting("trustProxy")) {
             const proxy = request.headers["x-forwarded-host"];
@@ -202,15 +202,15 @@ let needSetup = false;
             await StatusPage.handleStatusPageResponse(response, server.indexHTML, slug);
 
         } else if (uptimeKumaEntryPage && uptimeKumaEntryPage.startsWith("statusPage-")) {
-            response.redirect("/status/" + uptimeKumaEntryPage.replace("statusPage-", ""));
+            response.redirect("/kuma/status/" + uptimeKumaEntryPage.replace("statusPage-", ""));
 
         } else {
-            response.redirect("/dashboard");
+            response.redirect("/kuma/dashboard");
         }
     });
 
     if (isDev) {
-        app.post("/test-webhook", async (request, response) => {
+        app.post("/kuma/test-webhook", async (request, response) => {
             log.debug("test", request.headers);
             log.debug("test", request.body);
             response.send("OK");
@@ -218,7 +218,7 @@ let needSetup = false;
     }
 
     // Robots.txt
-    app.get("/robots.txt", async (_request, response) => {
+    app.get("/kuma/robots.txt", async (_request, response) => {
         let txt = "User-agent: *\nDisallow:";
         if (!await setting("searchEngineIndex")) {
             txt += " /";
@@ -231,17 +231,17 @@ let needSetup = false;
 
     // Prometheus API metrics  /metrics
     // With Basic Auth using the first user's username/password
-    app.get("/metrics", apiAuth, prometheusAPIMetrics());
+    app.get("/kuma/metrics", apiAuth, prometheusAPIMetrics());
 
-    app.use("/", expressStaticGzip("dist", {
+    app.use("/kuma/", expressStaticGzip("dist", {
         enableBrotli: true,
     }));
 
     // ./data/upload
-    app.use("/upload", express.static(Database.uploadDir));
+    app.use("/kuma/upload", express.static(Database.uploadDir));
 
     app.get("/.well-known/change-password", async (_, response) => {
-        response.redirect("https://github.com/louislam/uptime-kuma/wiki/Reset-Password-via-CLI");
+        response.redirect("https://github.com/realashleybailey/uptime-kuma/wiki/Reset-Password-via-CLI");
     });
 
     // API Router
@@ -439,7 +439,7 @@ let needSetup = false;
 
                     // Google authenticator doesn't like equal signs
                     // The fix is found at https://github.com/guyht/notp
-                    // Related issue: https://github.com/louislam/uptime-kuma/issues/486
+                    // Related issue: https://github.com/realashleybailey/uptime-kuma/issues/486
                     encodedSecret = encodedSecret.toString().replace(/=/g, "");
 
                     let uri = `otpauth://totp/Uptime%20Kuma:${user.username}?secret=${encodedSecret}`;
@@ -673,7 +673,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("monitor", " id = ? ", [ monitor.id ]);
+                let bean = await R.findOne("monitor", " id = ? ", [monitor.id]);
 
                 if (bean.user_id !== socket.userID) {
                     throw new Error("Permission denied.");
@@ -953,7 +953,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("tag", " id = ? ", [ tag.id ]);
+                let bean = await R.findOne("tag", " id = ? ", [tag.id]);
                 if (bean == null) {
                     callback({
                         ok: false,
@@ -983,7 +983,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                await R.exec("DELETE FROM tag WHERE id = ? ", [ tagID ]);
+                await R.exec("DELETE FROM tag WHERE id = ? ", [tagID]);
 
                 callback({
                     ok: true,
@@ -1074,7 +1074,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                if (! password.newPassword) {
+                if (!password.newPassword) {
                     throw new Error("Invalid new password");
                 }
 
@@ -1289,7 +1289,7 @@ let needSetup = false;
                         const exists = proxies.find(item => item.id === proxy.id);
 
                         // Do not process when proxy already exists in import handle is skip and keep
-                        if ([ "skip", "keep" ].includes(importHandle) && !exists) {
+                        if (["skip", "keep"].includes(importHandle) && !exists) {
                             return;
                         }
 
@@ -1382,7 +1382,7 @@ let needSetup = false;
                                     ]);
 
                                     let tagId;
-                                    if (! tag) {
+                                    if (!tag) {
                                         // -> If it doesn't exist, create new tag from backup file
                                         let beanTag = R.dispense("tag");
                                         beanTag.name = oldTag.name;
@@ -1599,7 +1599,7 @@ async function checkOwner(userID, monitorID) {
         userID,
     ]);
 
-    if (! row) {
+    if (!row) {
         throw new Error("You do not own this monitor.");
     }
 }
@@ -1653,7 +1653,7 @@ async function afterLogin(socket, user) {
  * @returns {Promise<void>}
  */
 async function initDatabase(testMode = false) {
-    if (! fs.existsSync(Database.path)) {
+    if (!fs.existsSync(Database.path)) {
         log.info("server", "Copying Database");
         fs.copyFileSync(Database.templatePath, Database.path);
     }
@@ -1669,7 +1669,7 @@ async function initDatabase(testMode = false) {
         "jwtSecret",
     ]);
 
-    if (! jwtSecretBean) {
+    if (!jwtSecretBean) {
         log.info("server", "JWT secret is not found, generate one.");
         jwtSecretBean = await initJWTSecret();
         log.info("server", "Stored JWT secret into database");
@@ -1803,5 +1803,5 @@ gracefulShutdown(server.httpServer, {
 process.addListener("unhandledRejection", (error, promise) => {
     console.trace(error);
     UptimeKumaServer.errorLog(error, false);
-    console.error("If you keep encountering errors, please report to https://github.com/louislam/uptime-kuma/issues");
+    console.error("If you keep encountering errors, please report to https://github.com/realashleybailey/uptime-kuma/issues");
 });

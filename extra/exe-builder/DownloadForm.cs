@@ -10,17 +10,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace UptimeKuma {
-    public partial class DownloadForm : Form {
+namespace UptimeKuma
+{
+    public partial class DownloadForm : Form
+    {
         private readonly Queue<DownloadItem> downloadQueue = new();
         private readonly WebClient webClient = new();
         private DownloadItem currentDownloadItem;
 
-        public DownloadForm() {
+        public DownloadForm()
+        {
             InitializeComponent();
         }
 
-        private void DownloadForm_Load(object sender, EventArgs e) {
+        private void DownloadForm_Load(object sender, EventArgs e)
+        {
             webClient.DownloadProgressChanged += DownloadProgressChanged;
             webClient.DownloadFileCompleted += DownloadFileCompleted;
 
@@ -34,28 +38,34 @@ namespace UptimeKuma {
             var uptimeKumaVersion = versionObj.latest;
             var hasUpdateFile = File.Exists("update");
 
-            if (!Directory.Exists("node")) {
-                downloadQueue.Enqueue(new DownloadItem {
+            if (!Directory.Exists("node"))
+            {
+                downloadQueue.Enqueue(new DownloadItem
+                {
                     URL = $"https://nodejs.org/dist/v{nodeVersion}/node-v{nodeVersion}-win-x64.zip",
                     Filename = "node.zip",
                     TargetFolder = "node"
                 });
             }
 
-            if (!Directory.Exists("core") || hasUpdateFile) {
+            if (!Directory.Exists("core") || hasUpdateFile)
+            {
 
                 // It is update, rename the core folder to core.old
-                if (Directory.Exists("core")) {
+                if (Directory.Exists("core"))
+                {
                     // Remove the old core.old folder
-                    if (Directory.Exists("core.old")) {
+                    if (Directory.Exists("core.old"))
+                    {
                         Directory.Delete("core.old", true);
                     }
 
                     Directory.Move("core", "core.old");
                 }
 
-                downloadQueue.Enqueue(new DownloadItem {
-                    URL = $"https://github.com/louislam/uptime-kuma/archive/refs/tags/{uptimeKumaVersion}.zip",
+                downloadQueue.Enqueue(new DownloadItem
+                {
+                    URL = $"https://github.com/realashleybailey/uptime-kuma/archive/refs/tags/{uptimeKumaVersion}.zip",
                     Filename = "core.zip",
                     TargetFolder = "core"
                 });
@@ -63,7 +73,8 @@ namespace UptimeKuma {
                 File.WriteAllText("version.json", versionJson);
 
                 // Delete the update file
-                if (hasUpdateFile) {
+                if (hasUpdateFile)
+                {
                     File.Delete("update");
                 }
             }
@@ -71,33 +82,42 @@ namespace UptimeKuma {
             DownloadNextFile();
         }
 
-        void DownloadNextFile() {
-            if (downloadQueue.Count > 0) {
+        void DownloadNextFile()
+        {
+            if (downloadQueue.Count > 0)
+            {
                 var item = downloadQueue.Dequeue();
 
                 currentDownloadItem = item;
 
                 // Download if the zip file is not existing
-                if (!File.Exists(item.Filename)) {
+                if (!File.Exists(item.Filename))
+                {
                     label.Text = item.URL;
                     webClient.DownloadFileAsync(new Uri(item.URL), item.Filename);
-                } else {
+                }
+                else
+                {
                     progressBar.Value = 100;
                     label.Text = "Use local " + item.Filename;
                     DownloadFileCompleted(null, null);
                 }
-            } else {
+            }
+            else
+            {
                 npmSetup();
             }
         }
 
-        void npmSetup() {
+        void npmSetup()
+        {
             labelData.Text = "";
 
             var npm = "..\\node\\npm.cmd";
             var cmd = $"{npm} ci --production & {npm} run download-dist & exit";
 
-            var startInfo = new ProcessStartInfo {
+            var startInfo = new ProcessStartInfo
+            {
                 FileName = "cmd.exe",
                 Arguments = $"/k \"{cmd}\"",
                 RedirectStandardOutput = false,
@@ -111,17 +131,22 @@ namespace UptimeKuma {
             var process = new Process();
             process.StartInfo = startInfo;
             process.EnableRaisingEvents = true;
-            process.Exited += (_, e) => {
+            process.Exited += (_, e) =>
+            {
                 progressBar.Value = 100;
 
-               if (process.ExitCode == 0) {
-                   Task.Delay(2000).ContinueWith(_ => {
-                       Application.Restart();
-                   });
-                   label.Text = "Done";
-               } else {
-                   label.Text = "Failed, exit code: " + process.ExitCode;
-               }
+                if (process.ExitCode == 0)
+                {
+                    Task.Delay(2000).ContinueWith(_ =>
+                    {
+                        Application.Restart();
+                    });
+                    label.Text = "Done";
+                }
+                else
+                {
+                    label.Text = "Failed, exit code: " + process.ExitCode;
+                }
 
             };
             process.Start();
@@ -130,28 +155,34 @@ namespace UptimeKuma {
             process.WaitForExit();
         }
 
-        void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
+        void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
             progressBar.Value = e.ProgressPercentage;
             var total = e.TotalBytesToReceive / 1024;
             var current = e.BytesReceived / 1024;
 
-            if (total > 0) {
+            if (total > 0)
+            {
                 labelData.Text = $"{current}KB/{total}KB";
             }
         }
 
-        void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
+        void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
             Extract(currentDownloadItem);
             DownloadNextFile();
         }
 
-        void Extract(DownloadItem item) {
-            if (Directory.Exists(item.TargetFolder)) {
+        void Extract(DownloadItem item)
+        {
+            if (Directory.Exists(item.TargetFolder))
+            {
                 var dir = new DirectoryInfo(item.TargetFolder);
                 dir.Delete(true);
             }
 
-            if (Directory.Exists("temp")) {
+            if (Directory.Exists("temp"))
+            {
                 var dir = new DirectoryInfo("temp");
                 dir.Delete(true);
             }
@@ -167,26 +198,34 @@ namespace UptimeKuma {
 
 
 
-            if (dirList.Length > 0) {
+            if (dirList.Length > 0)
+            {
                 var dir = dirList[0];
 
                 // As sometime ExtractToDirectory is still locking the directory, loop until ok
-                while (true) {
-                    try {
+                while (true)
+                {
+                    try
+                    {
                         Directory.Move(dir, item.TargetFolder);
                         break;
-                    } catch (Exception exception) {
+                    }
+                    catch (Exception exception)
+                    {
                         Thread.Sleep(1000);
                     }
                 }
 
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("Unexcepted Error: Cannot move extracted files, folder not found.");
             }
 
             labelData.Text = $"Extracted";
 
-            if (Directory.Exists("temp")) {
+            if (Directory.Exists("temp"))
+            {
                 var dir = new DirectoryInfo("temp");
                 dir.Delete(true);
             }
@@ -195,7 +234,8 @@ namespace UptimeKuma {
         }
     }
 
-    public class DownloadItem {
+    public class DownloadItem
+    {
         public string URL { get; set; }
         public string Filename { get; set; }
         public string TargetFolder { get; set; }

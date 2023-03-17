@@ -9,7 +9,7 @@ const github = require("@actions/github");
         const client = github.getOctokit(token).rest;
 
         const issue = {
-            owner: "louislam",
+            owner: "realashleybailey",
             repo: "uptime-kuma",
             number: issueNumber,
         };
@@ -29,7 +29,7 @@ const github = require("@actions/github");
                 owner: issue.owner,
                 repo: issue.repo,
                 issue_number: issue.number,
-                labels: [ "invalid-format" ]
+                labels: ["invalid-format"]
             });
 
             // Add the issue closing comment

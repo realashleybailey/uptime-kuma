@@ -729,7 +729,7 @@ export default {
         },
 
         pushURL() {
-            return this.$root.baseURL + "/api/push/" + this.monitor.pushToken + "?status=up&msg=OK&ping=";
+            return this.$root.baseURL + "/kuma/api/push/" + this.monitor.pushToken + "?status=up&msg=OK&ping=";
         },
 
         protoServicePlaceholder() {
@@ -1046,7 +1046,7 @@ message HealthCheckResponse {
                         toast.success(res.msg);
                         this.processing = false;
                         this.$root.getMonitorList();
-                        this.$router.push("/dashboard/" + res.monitorID);
+                        this.$router.push("/kuma/dashboard/" + res.monitorID);
                     } else {
                         toast.error(res.msg);
                         this.processing = false;

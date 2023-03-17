@@ -13,7 +13,7 @@ export default {
 
     mounted() {
         // Default Light
-        if (! this.userTheme) {
+        if (!this.userTheme) {
             this.userTheme = "auto";
         }
 
@@ -38,7 +38,7 @@ export default {
                 return "light";
             }
 
-            if (this.path.startsWith("/status-page") || this.path.startsWith("/status")) {
+            if (this.path.startsWith("/kuma/status-page") || this.path.startsWith("/kuma/status")) {
                 return this.statusPageTheme;
             } else {
                 if (this.userTheme === "auto") {

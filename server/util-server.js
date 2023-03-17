@@ -229,7 +229,7 @@ exports.dnsResolve = function (hostname, resolverServer, resolverPort, rrtype) {
     // Remove brackets from IPv6 addresses so we can re-add them to
     // prevent issues with ::1:5300 (::1 port 5300)
     resolverServer = resolverServer.replace("[", "").replace("]", "");
-    resolver.setServers([ `[${resolverServer}]:${resolverPort}` ]);
+    resolver.setServers([`[${resolverServer}]:${resolverPort}`]);
     return new Promise((resolve, reject) => {
         if (rrtype === "PTR") {
             resolver.reverse(hostname, (err, records) => {
@@ -380,16 +380,16 @@ exports.radius = function (
     const client = new radiusClient({
         host: hostname,
         hostPort: port,
-        dictionaries: [ file ],
+        dictionaries: [file],
     });
 
     return client.accessRequest({
         secret: secret,
         attributes: [
-            [ attributes.USER_NAME, username ],
-            [ attributes.USER_PASSWORD, password ],
-            [ attributes.CALLING_STATION_ID, callingStationId ],
-            [ attributes.CALLED_STATION_ID, calledStationId ],
+            [attributes.USER_NAME, username],
+            [attributes.USER_PASSWORD, password],
+            [attributes.CALLING_STATION_ID, callingStationId],
+            [attributes.CALLED_STATION_ID, calledStationId],
         ],
     });
 };
@@ -667,7 +667,7 @@ exports.doubleCheckPassword = async (socket, currentPassword) => {
 exports.startUnitTest = async () => {
     console.log("Starting unit test...");
     const npm = /^win/.test(process.platform) ? "npm.cmd" : "npm";
-    const child = childProcess.spawn(npm, [ "run", "jest-backend" ]);
+    const child = childProcess.spawn(npm, ["run", "jest-backend"]);
 
     child.stdout.on("data", (data) => {
         console.log(data.toString());
@@ -687,7 +687,7 @@ exports.startUnitTest = async () => {
 exports.startE2eTests = async () => {
     console.log("Starting unit test...");
     const npm = /^win/.test(process.platform) ? "npm.cmd" : "npm";
-    const child = childProcess.spawn(npm, [ "run", "cy:run" ]);
+    const child = childProcess.spawn(npm, ["run", "cy:run"]);
 
     child.stdout.on("data", (data) => {
         console.log(data.toString());

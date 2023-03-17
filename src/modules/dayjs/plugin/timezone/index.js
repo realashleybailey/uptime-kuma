@@ -1,6 +1,6 @@
 /**
  * Copy from node_modules/dayjs/plugin/timezone.js
- * Try to fix https://github.com/louislam/uptime-kuma/issues/2318
+ * Try to fix https://github.com/realashleybailey/uptime-kuma/issues/2318
  * Source: https://github.com/iamkun/dayjs/tree/dev/src/plugin/utc
  * License: MIT
  */
@@ -89,13 +89,13 @@ export default (function (o, c, d) {
     // https://github.com/moment/luxon/blob/master/src/datetime.js#L76
 
     let fixOffset = function fixOffset(localTS, o0, tz) {
-    // Our UTC time is just a guess because our offset is just a guess
+        // Our UTC time is just a guess because our offset is just a guess
         let utcGuess = localTS - o0 * 60 * 1000; // Test whether the zone matches the offset for this ts
 
         let o2 = tzOffset(utcGuess, tz); // If so, offset didn't change and we're done
 
         if (o0 === o2) {
-            return [ utcGuess, o0 ];
+            return [utcGuess, o0];
         } // If not, change the ts by the difference in the offset
 
         utcGuess -= (o2 - o0) * 60 * 1000; // If that gives us the local time we want, we're done
@@ -103,11 +103,11 @@ export default (function (o, c, d) {
         let o3 = tzOffset(utcGuess, tz);
 
         if (o2 === o3) {
-            return [ utcGuess, o2 ];
+            return [utcGuess, o2];
         } // If it's different, we're in a hole time.
         // The offset has changed, but the we don't adjust the time
 
-        return [ localTS - Math.min(o2, o3) * 60 * 1000, Math.max(o2, o3) ];
+        return [localTS - Math.min(o2, o3) * 60 * 1000, Math.max(o2, o3)];
     };
 
     let proto = c.prototype;
@@ -135,7 +135,7 @@ export default (function (o, c, d) {
     };
 
     proto.offsetName = function (type) {
-    // type: short(default) / long
+        // type: short(default) / long
         let zone = this.$x.$timezone || d.tz.guess();
         let result = makeFormatParts(this.valueOf(), zone, {
             timeZoneName: type

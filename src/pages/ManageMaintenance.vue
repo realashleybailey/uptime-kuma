@@ -6,13 +6,20 @@
             </h1>
 
             <div>
-                <router-link to="/add-maintenance" class="btn btn-primary mb-3">
-                    <font-awesome-icon icon="plus" /> {{ $t("Schedule Maintenance") }}
+                <router-link
+                    to="/kuma/add-maintenance"
+                    class="btn btn-primary mb-3"
+                >
+                    <font-awesome-icon icon="plus" />
+                    {{ $t("Schedule Maintenance") }}
                 </router-link>
             </div>
 
             <div class="shadow-box">
-                <span v-if="Object.keys(sortedMaintenanceList).length === 0" class="d-flex align-items-center justify-content-center my-3">
+                <span
+                    v-if="Object.keys(sortedMaintenanceList).length === 0"
+                    class="d-flex align-items-center justify-content-center my-3"
+                >
                     {{ $t("No Maintenance") }}
                 </span>
 
@@ -23,9 +30,7 @@
                     :class="item.status"
                 >
                     <div class="left-part">
-                        <div
-                            class="circle"
-                        ></div>
+                        <div class="circle"></div>
                         <div class="info">
                             <div class="title">{{ item.title }}</div>
                             <div v-if="false">{{ item.description }}</div>
@@ -38,38 +43,76 @@
                     </div>
 
                     <div class="buttons">
-                        <router-link v-if="false" :to="maintenanceURL(item.id)" class="btn btn-light">{{ $t("Details") }}</router-link>
+                        <router-link
+                            v-if="false"
+                            :to="maintenanceURL(item.id)"
+                            class="btn btn-light"
+                            >{{ $t("Details") }}</router-link
+                        >
 
                         <div class="btn-group" role="group">
-                            <button v-if="item.active" class="btn btn-normal" @click="pauseDialog(item.id)">
-                                <font-awesome-icon icon="pause" /> {{ $t("Pause") }}
+                            <button
+                                v-if="item.active"
+                                class="btn btn-normal"
+                                @click="pauseDialog(item.id)"
+                            >
+                                <font-awesome-icon icon="pause" />
+                                {{ $t("Pause") }}
                             </button>
 
-                            <button v-if="!item.active" class="btn btn-primary" @click="resumeMaintenance(item.id)">
-                                <font-awesome-icon icon="play" /> {{ $t("Resume") }}
+                            <button
+                                v-if="!item.active"
+                                class="btn btn-primary"
+                                @click="resumeMaintenance(item.id)"
+                            >
+                                <font-awesome-icon icon="play" />
+                                {{ $t("Resume") }}
                             </button>
 
-                            <router-link :to="'/maintenance/edit/' + item.id" class="btn btn-normal">
-                                <font-awesome-icon icon="edit" /> {{ $t("Edit") }}
+                            <router-link
+                                :to="'/kuma/maintenance/edit/' + item.id"
+                                class="btn btn-normal"
+                            >
+                                <font-awesome-icon icon="edit" />
+                                {{ $t("Edit") }}
                             </router-link>
 
-                            <button class="btn btn-danger" @click="deleteDialog(item.id)">
-                                <font-awesome-icon icon="trash" /> {{ $t("Delete") }}
+                            <button
+                                class="btn btn-danger"
+                                @click="deleteDialog(item.id)"
+                            >
+                                <font-awesome-icon icon="trash" />
+                                {{ $t("Delete") }}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mt-3" style="font-size: 13px;">
-                <a href="https://github.com/louislam/uptime-kuma/wiki/Maintenance" target="_blank">{{ $t("Learn More") }}</a>
+            <div class="text-center mt-3" style="font-size: 13px">
+                <a
+                    href="https://github.com/realashleybailey/uptime-kuma/wiki/Maintenance"
+                    target="_blank"
+                    >{{ $t("Learn More") }}</a
+                >
             </div>
 
-            <Confirm ref="confirmPause" :yes-text="$t('Yes')" :no-text="$t('No')" @yes="pauseMaintenance">
+            <Confirm
+                ref="confirmPause"
+                :yes-text="$t('Yes')"
+                :no-text="$t('No')"
+                @yes="pauseMaintenance"
+            >
                 {{ $t("pauseMaintenanceMsg") }}
             </Confirm>
 
-            <Confirm ref="confirmDelete" btn-style="btn-danger" :yes-text="$t('Yes')" :no-text="$t('No')" @yes="deleteMaintenance">
+            <Confirm
+                ref="confirmDelete"
+                btn-style="btn-danger"
+                :yes-text="$t('Yes')"
+                :no-text="$t('No')"
+                @yes="deleteMaintenance"
+            >
                 {{ $t("deleteMaintenanceMsg") }}
             </Confirm>
         </div>
@@ -94,11 +137,11 @@ export default {
             selectedMaintenanceID: undefined,
             statusOrderList: {
                 "under-maintenance": 1000,
-                "scheduled": 900,
-                "inactive": 800,
-                "ended": 700,
-                "unknown": 0,
-            }
+                scheduled: 900,
+                inactive: 800,
+                ended: 700,
+                unknown: 0,
+            },
         };
     },
     computed: {
@@ -106,19 +149,23 @@ export default {
             let result = Object.values(this.$root.maintenanceList);
 
             result.sort((m1, m2) => {
-                if (this.statusOrderList[m1.status] === this.statusOrderList[m2.status]) {
+                if (
+                    this.statusOrderList[m1.status] ===
+                    this.statusOrderList[m2.status]
+                ) {
                     return m1.title.localeCompare(m2.title);
                 } else {
-                    return this.statusOrderList[m1.status] < this.statusOrderList[m2.status];
+                    return (
+                        this.statusOrderList[m1.status] <
+                        this.statusOrderList[m2.status]
+                    );
                 }
             });
 
             return result;
         },
     },
-    mounted() {
-
-    },
+    mounted() {},
     methods: {
         /**
          * Get the correct URL for the icon
@@ -156,7 +203,7 @@ export default {
             this.$root.deleteMaintenance(this.selectedMaintenanceID, (res) => {
                 if (res.ok) {
                     toast.success(res.msg);
-                    this.$router.push("/maintenance");
+                    this.$router.push("/kuma/maintenance");
                 } else {
                     toast.error(res.msg);
                 }
@@ -175,9 +222,11 @@ export default {
          * Pause maintenance
          */
         pauseMaintenance() {
-            this.$root.getSocket().emit("pauseMaintenance", this.selectedMaintenanceID, (res) => {
-                this.$root.toastRes(res);
-            });
+            this.$root
+                .getSocket()
+                .emit("pauseMaintenance", this.selectedMaintenanceID, (res) => {
+                    this.$root.toastRes(res);
+                });
         },
 
         /**
@@ -193,111 +242,111 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "../assets/vars.scss";
+@import "../assets/vars.scss";
 
-    .mobile {
-        .item {
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
+.mobile {
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all ease-in-out 0.15s;
+    justify-content: space-between;
+    padding: 10px;
+    min-height: 90px;
+    margin-bottom: 5px;
+
+    &:hover {
+        background-color: $highlight-white;
     }
 
-    .item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        border-radius: 10px;
-        transition: all ease-in-out 0.15s;
-        justify-content: space-between;
-        padding: 10px;
-        min-height: 90px;
-        margin-bottom: 5px;
+    &.under-maintenance {
+        background-color: rgba(23, 71, 245, 0.16);
 
         &:hover {
-            background-color: $highlight-white;
+            background-color: rgba(23, 71, 245, 0.3) !important;
         }
 
-        &.under-maintenance {
-            background-color: rgba(23, 71, 245, 0.16);
-
-            &:hover {
-                background-color: rgba(23, 71, 245, 0.3) !important;
-            }
-
-            .circle {
-                background-color: $maintenance;
-            }
+        .circle {
+            background-color: $maintenance;
         }
+    }
 
-        &.scheduled {
-            .circle {
-                background-color: $primary;
-            }
+    &.scheduled {
+        .circle {
+            background-color: $primary;
         }
+    }
 
-        &.inactive {
-            .circle {
-                background-color: $danger;
-            }
+    &.inactive {
+        .circle {
+            background-color: $danger;
         }
+    }
 
-        &.ended {
-            .left-part {
-                opacity: 0.3;
-            }
-
-            .circle {
-                background-color: $dark-font-color;
-            }
-        }
-
-        &.unknown {
-            .circle {
-                background-color: $dark-font-color;
-            }
-        }
-
+    &.ended {
         .left-part {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-
-            .circle {
-                width: 25px;
-                height: 25px;
-                border-radius: 50rem;
-            }
-
-            .info {
-                .title {
-                    font-weight: bold;
-                    font-size: 20px;
-                }
-
-                .status {
-                    font-size: 14px;
-                }
-            }
+            opacity: 0.3;
         }
 
-        .buttons {
-            display: flex;
-            gap: 8px;
-            flex-direction: row-reverse;
+        .circle {
+            background-color: $dark-font-color;
+        }
+    }
 
-            .btn-group {
-                width: 310px;
+    &.unknown {
+        .circle {
+            background-color: $dark-font-color;
+        }
+    }
+
+    .left-part {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        .circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50rem;
+        }
+
+        .info {
+            .title {
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+            .status {
+                font-size: 14px;
             }
         }
     }
 
-    .dark {
-        .item {
-            &:hover {
-                background-color: $dark-bg2;
-            }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        flex-direction: row-reverse;
+
+        .btn-group {
+            width: 310px;
         }
     }
+}
+
+.dark {
+    .item {
+        &:hover {
+            background-color: $dark-bg2;
+        }
+    }
+}
 </style>

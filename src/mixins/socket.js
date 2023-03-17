@@ -100,7 +100,8 @@ export default {
             }
 
             socket = io(wsHost, {
-                transports: [ "websocket" ],
+                transports: ["websocket"],
+                path: "/kuma/socket.io",
             });
 
             socket.on("info", (info) => {
@@ -108,7 +109,7 @@ export default {
             });
 
             socket.on("setup", (monitorID, data) => {
-                this.$router.push("/setup");
+                this.$router.push("/kuma/setup");
             });
 
             socket.on("autoLogin", (monitorID, data) => {
