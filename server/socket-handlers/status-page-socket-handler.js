@@ -136,7 +136,7 @@ module.exports.statusPageSocketHandler = (socket) => {
             // If is image data url, convert to png file
             // Else assume it is a url, nothing to do
             if (imgDataUrl.startsWith("data:")) {
-                if (! imgDataUrl.startsWith(header)) {
+                if (!imgDataUrl.startsWith(header)) {
                     throw new Error("Only allowed PNG logo.");
                 }
 
@@ -144,7 +144,7 @@ module.exports.statusPageSocketHandler = (socket) => {
 
                 // Convert to file
                 await ImageDataURI.outputFile(imgDataUrl, Database.uploadDir + filename);
-                config.logo = `/upload/${filename}?t=` + Date.now();
+                config.logo = `/kuma/upload/${filename}?t=` + Date.now();
 
             } else {
                 config.icon = imgDataUrl;
